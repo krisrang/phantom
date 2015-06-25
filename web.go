@@ -3,6 +3,7 @@ package main
 import (
   "fmt"
   "net/http"
+  "os/exec"
   "os"
 )
 
@@ -16,5 +17,9 @@ func main() {
 }
 
 func test(res http.ResponseWriter, req *http.Request) {
-  fmt.Fprintln(res, "hello, heroku")
+  path, _ := exec.LookPath("phantomjs")
+  fmt.Fprintln(res, path)
+  
+  out, _ := exec.Command(path, "-v").Output()
+  fmt.Fprintln(res, out)
 }
