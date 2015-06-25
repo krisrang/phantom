@@ -12,3 +12,9 @@ indent_size = 2
 
 [*.md]
 trim_trailing_whitespace = true
+
+[*.go]
+end_of_line = lf
+trim_trailing_whitespace = true
+indent_style = tab
+indent_size = 4
