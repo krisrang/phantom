@@ -1,1 +1,1 @@
-web: phantom
+web: phantom ./screenshot.js
