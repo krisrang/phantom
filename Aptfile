@@ -1,6 +1,4 @@
 libicu-dev
 libfreetype6
 libfreetype6-dev
-libfontconfig 
-msttcorefonts
-ttf-mscorefonts-installer
+libfontconfig

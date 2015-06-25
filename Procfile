@@ -1,1 +1,1 @@
-web: fc-cache -fv && phantom ./screenshot.js
+web: phantom ./screenshot.js
