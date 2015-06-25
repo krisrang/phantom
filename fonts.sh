@@ -5,6 +5,6 @@ deb-src http://us.archive.ubuntu.com/ubuntu/ trusty-updates multiverse" > /etc/a
 apt-get update
 
 echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | debconf-set-selections
-apt-get install ttf-mscorefonts-installer --quiet
+yes | apt-get install ttf-mscorefonts-installer
 
 fc-cache -fv
