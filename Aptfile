@@ -2,3 +2,4 @@ libicu-dev
 libfreetype6
 libfreetype6-dev
 libfontconfig
+xvfb
