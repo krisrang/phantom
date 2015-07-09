@@ -3,3 +3,9 @@ libfreetype6
 libfreetype6-dev
 libfontconfig
 xvfb
+x11-xkb-utils
+xfonts-100dpi
+xfonts-75dpi
+xfonts-scalable
+xfonts-cyrillic
+xserver-xorg-core
