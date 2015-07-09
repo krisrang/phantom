@@ -8,15 +8,14 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
-	"strconv"
 )
 
 var phantomPath string
 var scriptPath string
 
 const (
-	VERSION 		= "0.0.1"
-	VERSIONFANCY 	= "Spooky Phantom"
+	VERSION      = "0.1.0"
+	VERSIONFANCY = "Snappy Phantom"
 )
 
 func main() {
@@ -25,7 +24,7 @@ func main() {
 		log.Fatal("installing phantomjs is in your future")
 	}
 	phantomPath = path
-    scriptPath, _ = filepath.Abs(os.Args[1])
+	scriptPath, _ = filepath.Abs(os.Args[1])
 
 	http.HandleFunc("/screenshot", screenshot)
 	http.HandleFunc("/version", version)
@@ -45,19 +44,17 @@ func version(res http.ResponseWriter, req *http.Request) {
 func screenshot(res http.ResponseWriter, req *http.Request) {
 	req.ParseForm()
 	url := req.Form.Get("url")
-	waitStr := req.Form.Get("wait")
-	if url == "" || waitStr == "" {
-		fmt.Fprintln(res, "must specify URL and wait time")
+	if url == "" {
+		fmt.Fprintln(res, "must specify URL")
 		return
 	}
 
-	wait, _ := strconv.Atoi(waitStr)
 	file, _ := ioutil.TempFile(os.Getenv("TMPDIR"), "screenshot")
 	tmpPath := file.Name() + ".png"
 	file.Close()
 	os.Remove(file.Name())
 
-	out, cmdErr := exec.Command(phantomPath, scriptPath, url, tmpPath, strconv.Itoa(wait * 1000)).CombinedOutput()
+	out, cmdErr := exec.Command(phantomPath, scriptPath, url, tmpPath).CombinedOutput()
 	if cmdErr != nil {
 		fmt.Fprintf(res, "Error screenshotting page: %s\n", out)
 		return

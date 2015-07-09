@@ -1,7 +1,7 @@
 var system = require('system'),
     page = require('webpage').create();
 
-page.viewportSize = { width: 1000, height: 1000 };
+page.viewportSize = { width: 1920, height: 1080 };
 page.open(system.args[1], function (status) {
   if (status !== 'success') {
     console.log('Unable to access the network!');
