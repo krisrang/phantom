@@ -19,9 +19,9 @@ const (
 )
 
 func main() {
-	path, pathErr := exec.LookPath("phantomjs")
+	path, pathErr := exec.LookPath("slimerjs")
 	if pathErr != nil {
-		log.Fatal("installing phantomjs is in your future")
+		log.Fatal("installing slimerjs is in your future")
 	}
 	phantomPath = path
 	scriptPath, _ = filepath.Abs(os.Args[1])
