@@ -15,6 +15,8 @@ dpkg-divert --local --rename --add /sbin/initctl
 ln -sf /bin/true /sbin/initctl
 
 # apt packages
+sed 's@us.archive.ubuntu.com@fr.archive.ubuntu.com@' -i /etc/apt/sources.list
+sed 's@//archive.ubuntu.com@//fr.archive.ubuntu.com@' -i /etc/apt/sources.list
 apt-get update
 apt-get upgrade -y --force-yes
 
