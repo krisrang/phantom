@@ -29,10 +29,6 @@ mkdir -p /var/log/supervisor
 # install go
 wget -qO- http://golang.org/dl/go1.4.2.linux-amd64.tar.gz | tar -C /usr/local -xzf -
 
-# setup xvfb scripts
-chmod a+x /etc/init.d/xvfb
-chmod a+x /usr/bin/xvfb-daemon-run
-
 # install slimerjs
 SLIMERJS_VERSION="0.9.6"
 SLIMERJS_ARCHIVE_NAME=slimerjs-${SLIMERJS_VERSION}
