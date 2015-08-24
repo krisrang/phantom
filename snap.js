@@ -58,7 +58,7 @@ function debounced_render() {
   clearTimeout(last_request_timeout);
   clearTimeout(final_timeout);
 
-  // If there's no more ongoing resource requests, wait for 2 second before
+  // If there's no more ongoing resource requests, wait for 1 second before
   // rendering, just in case the page kicks off another request
   if (current_requests < 1) {
       clearTimeout(final_timeout);
@@ -66,7 +66,7 @@ function debounced_render() {
           console.log('Snapping ' + url);
           page.render(image_name);
           phantom.exit();
-      }, 2000);
+      }, 1000);
   }
 
   // Sometimes, straggling requests never make it back, in which
