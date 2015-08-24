@@ -68,13 +68,18 @@ func screenshot(res http.ResponseWriter, req *http.Request) {
 		engine = "slimerjs"
 	}
 
+	zoom := req.Form.Get("zoom")
+	if zoom == "" {
+		zoom = "1"
+	}
+
 	file, _ := ioutil.TempFile(os.Getenv("TMPDIR"), "screenshot")
 	tmpPath := file.Name() + ".png"
 	file.Close()
 	os.Remove(file.Name())
 	defer os.Remove(tmpPath)
 
-	out, cmdErr := cmd(engine, scriptPath, url, tmpPath).CombinedOutput()
+	out, cmdErr := cmd(engine, scriptPath, url, zoom, tmpPath).CombinedOutput()
 	if cmdErr != nil {
 		fmt.Fprintf(res, "Error executing capture engine: %s\n", out)
 		return

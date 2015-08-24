@@ -2,13 +2,14 @@ var system = require('system');
 var page = require('webpage').create();
 var fs = require('fs');
 
-if (system.args.length !== 3) {
-    console.log('Usage: snap.js <some URL> <target image name>');
+if (system.args.length !== 4) {
+    console.log('Usage: snap.js <some URL> <zoomlevel> <target image name>');
     phantom.exit();
 }
 
 var url = system.args[1];
-var image_name = system.args[2];
+var zoom = system.args[2];
+var image_name = system.args[3];
 var current_requests = 0;
 var last_request_timeout;
 var final_timeout;
@@ -16,6 +17,7 @@ var final_timeout;
 
 page.viewportSize = { width: 1920, height: 1080};
 page.settings = { loadImages: true, javascriptEnabled: true };
+page.zoomFactor = parseInt(zoom);
 
 // If you want to use additional phantomjs commands, place them here
 // page.settings.userAgent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/28.0.1500.95 Safari/537.17';
