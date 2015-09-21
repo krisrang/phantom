@@ -9,14 +9,15 @@ import (
 	"os"
 	"os/exec"
 	"strconv"
+	"sync"
 )
 
 var scriptPath string
 var port int
 
 const (
-	VERSION      = "0.2.0"
-	VERSIONFANCY = "Choosy Phantom"
+	VERSION      = "0.3.0"
+	VERSIONFANCY = "Diffy Phantom"
 )
 
 func init() {
@@ -73,16 +74,37 @@ func screenshot(res http.ResponseWriter, req *http.Request) {
 		zoom = "1"
 	}
 
+	diff := req.Form.Get("diff")
+
 	file, _ := ioutil.TempFile(os.Getenv("TMPDIR"), "screenshot")
 	tmpPath := file.Name() + ".png"
 	file.Close()
 	os.Remove(file.Name())
 	defer os.Remove(tmpPath)
 
-	out, cmdErr := cmd(engine, scriptPath, url, zoom, tmpPath).CombinedOutput()
-	if cmdErr != nil {
-		fmt.Fprintf(res, "Error executing capture engine: %s\n", out)
-		return
+	if diff == "true" {
+		tmp1Path := file.Name() + "1.png"
+		tmp2Path := file.Name() + "2.png"
+		defer os.Remove(tmp1Path)
+		defer os.Remove(tmp2Path)
+
+		var wg sync.WaitGroup
+		wg.Add(2)
+		go snapUrl(&wg, engine, scriptPath, url+"&pass=1", zoom, tmp1Path)
+		go snapUrl(&wg, engine, scriptPath, url+"&pass=2", zoom, tmp2Path)
+		wg.Wait()
+
+		out, cmdErr := cmd("convert", tmp1Path, tmp2Path, "-alpha", "off", "(", "-clone", "0,1", "-compose", "difference", "-composite", "-separate", "-evaluate-sequence", "max", "-auto-level", "-negate", ")", "(", "-clone", "0,2", "-fx", "v==0?0:u/v-u.p{0,0}/v+u.p{0,0}", ")", "-delete", "0,1", "+swap", "-compose", "Copy_Opacity", "-composite", tmpPath).CombinedOutput()
+		if cmdErr != nil {
+			fmt.Fprintf(res, "Error processing image: %s\n", out)
+			return
+		}
+	} else {
+		out, cmdErr := cmd(engine, scriptPath, url, zoom, tmpPath).CombinedOutput()
+		if cmdErr != nil {
+			fmt.Fprintf(res, "Error executing capture engine: %s\n", out)
+			return
+		}
 	}
 
 	http.ServeFile(res, req, tmpPath)
@@ -92,6 +114,17 @@ func cmd(executable string, args ...string) *exec.Cmd {
 	path, _ := exec.LookPath(executable)
 	out := exec.Command(path, args...)
 	return out
+}
+
+func snapUrl(wg *sync.WaitGroup, engine string, scriptPath string, url string, zoom string, tmpPath string) ([]byte, error) {
+	defer wg.Done()
+
+	out, cmdErr := cmd(engine, scriptPath, url, zoom, tmpPath).CombinedOutput()
+	if cmdErr != nil {
+		return nil, fmt.Errorf("Error executing capture engine: %s\n", out)
+	}
+
+	return out, cmdErr
 }
 
 func checkExecutable(name string) {
