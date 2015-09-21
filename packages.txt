@@ -4,6 +4,7 @@ git
 wget
 curl
 xvfb
+imagemagick
 libicu-dev
 libjpeg-dev
 libfreetype6
