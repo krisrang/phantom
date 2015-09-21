@@ -21,7 +21,7 @@ page.zoomFactor = parseInt(zoom);
 
 // If you want to use additional phantomjs commands, place them here
 // page.settings.userAgent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/28.0.1500.95 Safari/537.17';
-page.settings.userAgent = 'Phantom 0.1.0 Snappy Phantom';
+page.settings.userAgent = 'Phantom 0.2.0 Choosy Phantom';
 
 // You can place custom headers here, example below.
 // page.customHeaders = {
@@ -58,7 +58,7 @@ function debounced_render() {
   clearTimeout(last_request_timeout);
   clearTimeout(final_timeout);
 
-  // If there's no more ongoing resource requests, wait for 1 second before
+  // If there's no more ongoing resource requests, wait for 2 seconds before
   // rendering, just in case the page kicks off another request
   if (current_requests < 1) {
       clearTimeout(final_timeout);
@@ -66,11 +66,11 @@ function debounced_render() {
           console.log('Snapping ' + url);
           page.render(image_name);
           phantom.exit();
-      }, 1000);
+      }, 2000);
   }
 
   // Sometimes, straggling requests never make it back, in which
-  // case, timeout after 5 seconds and render the page anyway
+  // case, timeout after 6 seconds and render the page anyway
   final_timeout = setTimeout(function() {
     console.log('Snapping ' + url);
     page.render(image_name);
