@@ -66,14 +66,14 @@ function debounced_render() {
           console.log('Snapping ' + url);
           page.render(image_name);
           phantom.exit();
-      }, 1000);
+      }, 2000);
   }
 
   // Sometimes, straggling requests never make it back, in which
-  // case, timeout after 6 seconds and render the page anyway
+  // case, timeout after 10 seconds and render the page anyway
   final_timeout = setTimeout(function() {
     console.log('Snapping ' + url);
     page.render(image_name);
     phantom.exit();
-  }, 6000);
+  }, 10000);
 }
