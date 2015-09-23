@@ -100,7 +100,7 @@ func screenshot(res http.ResponseWriter, req *http.Request) {
 			return
 		}
 	} else {
-		out, cmdErr := cmd(engine, scriptPath, url, zoom, tmpPath).CombinedOutput()
+		out, cmdErr := cmd(engine, "--disk-cache=true", "--max-disk-cache-size=102400", scriptPath, url, zoom, tmpPath).CombinedOutput()
 		if cmdErr != nil {
 			fmt.Fprintf(res, "Error executing capture engine: %s\n", out)
 			return
