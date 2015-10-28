@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/base64"
 	"flag"
 	"fmt"
 	"io/ioutil"
@@ -102,6 +103,7 @@ func screenshot(res http.ResponseWriter, req *http.Request) {
 			return
 		}
 	} else {
+		url = base64.StdEncoding.EncodeToString([]byte(url))
 		out, cmdErr := cmd(engine, "--disk-cache=true", "--max-disk-cache-size=102400", scriptPath, url, zoom, tmpPath).CombinedOutput()
 		if cmdErr != nil {
 			fmt.Fprintf(res, "Error executing capture engine: %s\n", out)

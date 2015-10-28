@@ -7,7 +7,11 @@ if (system.args.length !== 4) {
     phantom.exit();
 }
 
-var url = system.args[1];
+function decode_utf8(s) {
+  return decodeURIComponent(escape(s));
+}
+
+var url = decode_utf8(atob(system.args[1]));
 var zoom = system.args[2];
 var image_name = system.args[3];
 var current_requests = 0;
