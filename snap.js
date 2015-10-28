@@ -14,6 +14,7 @@ var current_requests = 0;
 var last_request_timeout;
 var final_timeout;
 
+console.log(url);
 
 page.viewportSize = { width: 1920, height: 1080};
 page.settings = { loadImages: true, javascriptEnabled: true };

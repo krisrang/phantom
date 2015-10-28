@@ -107,6 +107,8 @@ func screenshot(res http.ResponseWriter, req *http.Request) {
 			fmt.Fprintf(res, "Error executing capture engine: %s\n", out)
 			return
 		}
+
+		fmt.Println(string(out))
 	}
 
 	http.ServeFile(res, req, tmpPath)
