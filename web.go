@@ -64,6 +64,8 @@ func screenshot(res http.ResponseWriter, req *http.Request) {
 		return
 	}
 
+	fmt.Printf("Snapping %v\n", url)
+
 	engine := req.Form.Get("engine")
 	if engine == "" || (engine != "phantomjs" && engine != "slimerjs") {
 		engine = "slimerjs"
