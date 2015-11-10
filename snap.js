@@ -3,7 +3,7 @@ var page = require('webpage').create();
 var fs = require('fs');
 
 if (system.args.length !== 4) {
-    console.log('Usage: snap.js <some URL> <zoomlevel> <target image name>');
+    console.log('Usage: snap.js <some URL> <zoom> <target image name>');
     phantom.exit();
 }
 
@@ -22,7 +22,6 @@ console.log(url);
 
 page.viewportSize = { width: 1920, height: 1080};
 page.settings = { loadImages: true, javascriptEnabled: true };
-page.zoomFactor = parseInt(zoom);
 
 // If you want to use additional phantomjs commands, place them here
 // page.settings.userAgent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/28.0.1500.95 Safari/537.17';
@@ -55,6 +54,14 @@ page.open(url, function(status) {
   if (status !== 'success') {
     console.log('Error with page ' + url);
     phantom.exit();
+  } else {
+    page.evaluate(function (retina) {
+      /* scale the whole body */
+      document.body.style.webkitTransform = "scale(2)";
+      document.body.style.webkitTransformOrigin = "0% 0%";
+      /* fix the body width that overflows out of the viewport */
+      document.body.style.width = "50%";
+    });
   }
 });
 
