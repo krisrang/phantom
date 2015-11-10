@@ -55,10 +55,14 @@ page.open(url, function(status) {
     console.log('Error with page ' + url);
     phantom.exit();
   } else {
-    page.evaluate(function (retina) {
+    page.evaluate(function () {
       /* scale the whole body */
       document.body.style.webkitTransform = "scale(2)";
       document.body.style.webkitTransformOrigin = "0% 0%";
+      document.body.style.mozTransform = "scale(2)";
+      document.body.style.mozTransformOrigin = "0% 0%";
+      document.body.style.transform = "scale(2)";
+      document.body.style.transformOrigin = "0% 0%";
       /* fix the body width that overflows out of the viewport */
       document.body.style.width = "50%";
     });
