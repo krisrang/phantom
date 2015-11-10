@@ -75,7 +75,7 @@ function debounced_render() {
           } else {
             debounced_render();
           }
-      }, 3000);
+      }, 4000);
   }
 
   // Sometimes, straggling requests never make it back, in which
