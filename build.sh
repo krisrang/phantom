@@ -29,7 +29,7 @@ apt-get install -y --no-install-recommends supervisor
 mkdir -p /var/log/supervisor
 
 # install go
-wget -qO- http://golang.org/dl/go1.4.2.linux-amd64.tar.gz | tar -C /usr/local -xzf -
+wget -qO- https://storage.googleapis.com/golang/go1.6.linux-amd64.tar.gz | tar -C /usr/local -xzf -
 
 # install slimerjs
 SLIMERJS_VERSION="0.9.6"
