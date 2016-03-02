@@ -4,7 +4,7 @@ MAINTAINER krisrang "mail@rang.ee"
 ENV HOME /root
 ENV GOPATH /root/go
 ENV PATH /root/go/bin:/usr/local/slimerjs:/usr/local/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
-ENV LD_LIBRARY_PATH /usr/local/lib:/usr/lib:/lib:/usr/local/slimerjs
+ENV LD_LIBRARY_PATH /usr/local/lib:/usr/lib:/lib/x86_64-linux-gnu:/lib:/usr/local/slimerjs
 ENV LC_ALL C
 ENV INITRD No
 ENV DISPLAY :99
