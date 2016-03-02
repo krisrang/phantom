@@ -13,6 +13,7 @@ ENV PORT 5000
 RUN mkdir -p /root/go
 
 COPY . /root/go/src/github.com/krisrang/phantom
+COPY ./fonts /usr/local/share/fonts/skyltmax
 COPY . /build
 
 ADD ./CHECKS /app/CHECKS
