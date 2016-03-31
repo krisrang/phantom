@@ -16,7 +16,6 @@ ln -sf /bin/true /sbin/initctl
 
 # apt packages
 sed 's@us.archive.ubuntu.com@archive.ubuntu.com@' -i /etc/apt/sources.list
-sed 's@archive.ubuntu.com@mirrors.online.net@' -i /etc/apt/sources.list
 apt-get update
 apt-get upgrade -y --force-yes
 
