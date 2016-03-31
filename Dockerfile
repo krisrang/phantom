@@ -16,7 +16,6 @@ COPY . /root/go/src/github.com/krisrang/phantom
 COPY ./fonts /usr/local/share/fonts/skyltmax
 COPY . /build
 
-ADD ./CHECKS /app/CHECKS
 ADD ./multiverse.list /etc/apt/sources.list.d/multiverse.list
 ADD bin/phantomjs-linux_x86_64 /usr/local/bin/phantomjs
 ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
