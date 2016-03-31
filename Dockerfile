@@ -22,5 +22,4 @@ ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 RUN /build/build.sh
 
-EXPOSE 5000
 CMD supervisord
