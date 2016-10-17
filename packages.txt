@@ -16,3 +16,5 @@ libasound2
 libdbus-glib-1-2
 libgtk2.0-0
 ttf-mscorefonts-installer
+firefox
+unzip

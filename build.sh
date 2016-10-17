@@ -28,14 +28,17 @@ apt-get install -y --no-install-recommends supervisor
 mkdir -p /var/log/supervisor
 
 # install go
-wget -qO- https://storage.googleapis.com/golang/go1.6.linux-amd64.tar.gz | tar -C /usr/local -xzf -
+wget -qO- https://storage.googleapis.com/golang/go1.7.1.linux-amd64.tar.gz | tar -C /usr/local -xzf -
 
 # install slimerjs
-SLIMERJS_VERSION="0.9.6"
+SLIMERJS_VERSION="0.10.0"
 SLIMERJS_ARCHIVE_NAME=slimerjs-${SLIMERJS_VERSION}
-SLIMERJS_BINARIES_URL=http://download.slimerjs.org/releases/${SLIMERJS_VERSION}/${SLIMERJS_ARCHIVE_NAME}-linux-x86_64.tar.bz2
-curl -s $SLIMERJS_BINARIES_URL | tar xj -C /root
-mv /root/$SLIMERJS_ARCHIVE_NAME /usr/local/slimerjs
+SLIMERJS_BINARIES_URL=http://download.slimerjs.org/releases/${SLIMERJS_VERSION}/${SLIMERJS_ARCHIVE_NAME}.zip
+cd /usr/local
+curl -O $SLIMERJS_BINARIES_URL
+unzip ${SLIMERJS_ARCHIVE_NAME}.zip
+mv /usr/local/${SLIMERJS_ARCHIVE_NAME} /usr/local/slimerjs
+cp /build/application.ini /usr/local/slimerjs/
 
 # install app
 cd /root/go/src/github.com/krisrang/phantom
@@ -58,9 +61,6 @@ function pruned_find() {
 
 pruned_find -perm /u+s | xargs -r chmod u-s
 pruned_find -perm /g+s | xargs -r chmod g-s
-
-# remove non-root ownership of files
-chown root:root /var/lib/libuuid
 
 # display build summary
 set +x

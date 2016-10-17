@@ -1,4 +1,4 @@
-FROM ubuntu:14.04
+FROM ubuntu:16.04
 MAINTAINER krisrang "mail@rang.ee"
 
 ENV HOME /root
@@ -9,6 +9,7 @@ ENV LC_ALL C
 ENV INITRD No
 ENV DISPLAY :99
 ENV PORT 5000
+env SLIMERJSLAUNCHER /usr/bin/firefox
 
 RUN mkdir -p /root/go
 
